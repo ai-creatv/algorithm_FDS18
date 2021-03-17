@@ -8,53 +8,19 @@ class CircularQueue {
     }
 
     put(value) {
-        if (this.isFull === false) {
-            this.array[this.rear++] = value;
-            this.rear %= this.capacity;
-            if (this.rear === this.front) {
-                this.isFull = true;
-            }
-            return true;
-        } else {
-            return false;
-        }
+        
     }
 
     get() {
-        if (this.front !== this.rear || this.isFull === true) {
-            const value = this.array[this.front++];
-            this.front %= this.capacity;
-            this.isFull = false;
-            return value;
-        } else {
-            return undefined;
-        }
+        
     }
 
     peek() {
-        if (this.front !== this.rear || this.isFull === true) {
-            return this.array[this.front];
-        } else {
-            return undefined;
-        }
+        
     }
 
     print() {
-        let s = '';
-        let endIdx = this.rear;
-
-        if (this.rear === this.front && this.isFull === false) {
-            console.log('[]');
-            return;
-        }
-
-        if (this.rear <= this.front) {
-            endIdx += this.capacity;
-        }
-        for (let i = this.front; i < endIdx; i++) {
-            s += `${this.array[i % this.capacity]} `;
-        }
-        console.log(`[${s}]`);
+        
     }
 }
 
