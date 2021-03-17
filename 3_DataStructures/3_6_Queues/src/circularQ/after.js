@@ -1,71 +1,65 @@
-class Node {
-    constructor(value, prev, next) {
-        this.value = value;
-        this.prev = prev;
-        this.next = next;
+class CircularQueue {
+    constructor(capacity) {
+        this.capacity = capacity;
+        this.front = 0;
+        this.rear = 0;
+        this.isFull = false;
+        this.array = new Array(capacity);
     }
-}
 
-class LinkedQueue {
-    constructor() {
-        this.front = null;
-        this.rear = null;
-    }
-    
-    isEmpty() {
-        if (this.front === null) {
+    put(value) {
+        if (this.isFull === false) {
+            this.array[this.rear++] = value;
+            this.rear %= this.capacity;
+            if (this.rear === this.front) {
+                this.isFull = true;
+            }
             return true;
         } else {
             return false;
         }
     }
 
-    put(value) {
-        if (this.front === null) {
-            this.front = new Node(value, null, null);
-            this.rear = this.front;
-        } else {
-            this.rear = new Node(value, this.rear, null);
-            this.rear.prev.next = this.rear;
-        }
-    }
-
     get() {
-        let value = undefined;
-        if (this.front === null) {
-            return undefined;
-        } else if (this.front === this.rear) {
-            value = this.front.value;
-            this.front = null;
-            this.rear = null;
+        if (this.front !== this.rear || this.isFull === true) {
+            const value = this.array[this.front++];
+            this.front %= this.capacity;
+            this.isFull = false;
+            return value;
         } else {
-            value = this.front.value;
-            this.front = this.front.next;
-            this.front.prev = null;
+            return undefined;
         }
-        return value;
     }
 
+    peek() {
+        if (this.front !== this.rear || this.isFull === true) {
+            return this.array[this.front];
+        } else {
+            return undefined;
+        }
+    }
 
     print() {
-        let curr = this.front;
+        let s = '';
+        let endIdx = this.rear;
 
-        if (curr === null) {
+        if (this.rear === this.front && this.isFull === false) {
             console.log('[]');
             return;
         }
 
-        let s = '';
-        while(curr !== null) {
-            s += `${curr.value} `
-            curr = curr.next;
+        if (this.rear <= this.front) {
+            endIdx += this.capacity;
+        }
+        for (let i = this.front; i < endIdx; i++) {
+            s += `${this.array[i % this.capacity]} `;
         }
         console.log(`[${s}]`);
     }
 }
 
 
-queue = new LinkedQueue();
+queue = new CircularQueue(5);
 queue.print();
 
 queue.put(1);
