@@ -25,19 +25,99 @@ class BinaryTree {
     }
 
     preorder() {
-
+        let s = '';
+        
+        function recursive(node) {
+            s += `${node.value} `;
+            if (node.left !== null) {
+                recursive(node.left);
+            }
+            if (node.right !== null) {
+                recursive(node.right);
+            }
+        }
+        recursive(this.root);
+        console.log(s);
     }
 
     inorder() {
+        let s = '';
         
+        function recursive(node) {
+            if (node.left !== null) {
+                recursive(node.left);
+            }
+            s += `${node.value} `;
+            if (node.right !== null) {
+                recursive(node.right);
+            }
+        }
+        recursive(this.root);
+        console.log(s);
+    }
+
+    postorder() {
+        let s = '';
+        
+        function recursive(node) {
+            if (node.left !== null) {
+                recursive(node.left);
+            }
+            if (node.right !== null) {
+                recursive(node.right);
+            }
+            s += `${node.value} `;
+        }
+        recursive(this.root);
+        console.log(s);
     }
 
     bfs(value) {
-        
+        const queue = new Array();
+
+        queue.push(this.root);
+        while (queue.length > 0) {
+            const node = queue.shift();
+
+            if (node.value === value) {
+                return node;
+            }
+
+            if (node.left !== null) {
+                queue.push(node.left);
+            }
+            if (node.right !== null) {
+                queue.push(node.right);
+            }
+        }
+
+        return null;
     }
 
     dfs(value) {
+        let isFound = false;
+        let foundNode = null;
         
+        function recursive(node) {
+            if (isFound === true) {
+                return;
+            }
+
+            if (node.value === value) {
+                isFound = true;
+                foundNode = node;
+                return;
+            }
+            if (node.left !== null) {
+                recursive(node.left);
+            }
+            if (node.right !== null) {
+                recursive(node.right);
+            }
+        }
+        recursive(this.root);
+        
+        return foundNode;
     }
 }
 
