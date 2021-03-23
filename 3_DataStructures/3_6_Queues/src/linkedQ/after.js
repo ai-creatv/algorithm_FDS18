@@ -13,20 +13,54 @@ class LinkedQueue {
     }
     
     isEmpty() {
-        
+        if (this.front === null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     put(value) {
-        
+        if (this.front === null) {
+            this.front = new Node(value, null, null);
+            this.rear = this.front;
+        } else {
+            this.rear = new Node(value, this.rear, null);
+            this.rear.prev.next = this.rear;
+        }
     }
 
     get() {
-        
+        let value = undefined;
+        if (this.front === null) {
+            return undefined;
+        } else if (this.front === this.rear) {
+            value = this.front.value;
+            this.front = null;
+            this.rear = null;
+        } else {
+            value = this.front.value;
+            this.front = this.front.next;
+            this.front.prev = null;
+        }
+        return value;
     }
 
 
     print() {
-        
+        let curr = this.front;
+
+        if (curr === null) {
+            console.log('[]');
+            return;
+        }
+
+        let s = '';
+        while(curr !== null) {
+            s += `${curr.value} `
+            curr = curr.next;
+        }
+        console.log(`[${s}]`);
     }
 }
 
