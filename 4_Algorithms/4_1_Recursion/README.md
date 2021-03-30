@@ -25,9 +25,7 @@
 
 ```javascript
 function fibonacci(n) {
-    if (n < 2) { // 탈출 조건
-        return n;
-    }
+    if (n < 2) return n; // 탈출 조건
     return fibonacci(n-1) + fibonacci(n-2); // 재귀 호출(점화식 구현)
 }
 ```
@@ -39,9 +37,7 @@ function fibonacci(n) {
 
 ```javascript
 function quick_sort(x) {
-    if (len(x) < 2) { // 종료 조건
-        return x
-    }
+    if (len(x) < 2) return x; // 종료 조건
 
     left = [];
     right = [];
@@ -78,12 +74,8 @@ function fibonacci(n) {
     let fn_1 = 0; // 초기값 설정
     let fn = 1;
 
-    if (n == 0) {
-        return fn_1;
-    }
-    if (n == 1) {
-        return fn;
-    }
+    if (n == 0) return fn_1;    
+    if (n == 1) return fn;
 
     for (let i = 2; i <= n; i++) { // 반복문 구현
         [fn_1, fn] = [fn, fn_1 + fn];
@@ -104,13 +96,8 @@ function fibonacci(n) {
 
 ```javascript
 function fibonacci(n, a=0, b=1) {
-    if (n == 0) {
-        return a;
-    }
-    if (n == 1) {
-        return b;
-    }
-
+    if (n == 0) return a;
+    if (n == 1) return b;
     return fibonacci(n-1, b, a+b);
 }
 ```
